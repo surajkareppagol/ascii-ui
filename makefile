@@ -1,7 +1,7 @@
 CC := gcc
 CFLAGS := -Wall -Werror
-SRCS := src/signals.c src/panel.c src/util.c src/term.c src/text.c
-OBJF := signals.o panel.o util.o term.o text.o
+SRCS := src/signals.c src/panel.c src/util.c src/term.c src/text.c src/colors.c
+OBJF := signals.o panel.o util.o term.o text.o colors.o
 
 ifndef VERBOSE
 .SILENT:

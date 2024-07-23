@@ -2,10 +2,10 @@
  * @file util.c
  * @author Suraj K
  *
- * @brief Provides utility functions 
+ * @brief Provides utility functions
  *
  * @date 2024-07-21
- * 
+ *
  * @copyright Copyright (c) 2024
  */
 
@@ -13,15 +13,14 @@
 
 /**
  * @brief Fill dest with character.
- * 
+ *
  * @param dest The buffer to fill characters
  * @param character The characters
  * @param size The number of characters
  *
  * @return void
  */
-void fill_characters(char *dest, char character, uint size)
-{
+void fill_characters(char *dest, char character, uint size) {
   if (dest == NULL) {
     return;
   }
@@ -33,13 +32,12 @@ void fill_characters(char *dest, char character, uint size)
 
 /**
  * @brief Get the center position of the component
- * 
+ *
  * @param size The size of the component
  *
- * @return uint 
+ * @return uint
  */
-uint get_center_pos(uint size)
-{
+uint get_center_pos(uint size) {
   uint term_rows, term_cols;
 
   get_term_wh(&term_rows, &term_cols);
@@ -52,13 +50,12 @@ uint get_center_pos(uint size)
 
 /**
  * @brief Get the right position of the component
- * 
+ *
  * @param size The size of the component
  *
- * @return uint 
+ * @return uint
  */
-uint get_right_pos(uint size)
-{
+uint get_right_pos(uint size) {
   uint term_rows, term_cols;
 
   get_term_wh(&term_rows, &term_cols);
@@ -69,14 +66,13 @@ uint get_right_pos(uint size)
 /**
  * @brief Check rows and columns whether they are
  * within bounds
- * 
+ *
  * @param rows The row value
  * @param columns The column value
  *
- * @return int 
+ * @return int
  */
-int check_wh(uint rows, uint columns)
-{
+int check_wh(uint rows, uint columns) {
   uint term_rows, term_cols;
 
   get_term_wh(&term_rows, &term_cols);
@@ -91,14 +87,13 @@ int check_wh(uint rows, uint columns)
 /**
  * @brief Get the current cursor position
  * NOTE: [WIP] This function is not yet completed.
- * 
+ *
  * @param current_row The pointer to store current row position
  * @param current_column The pointer to store current column position
  *
  * @return void
  */
-void get_cursor_pos(uint *current_row, uint *current_column)
-{
+void get_cursor_pos(uint *current_row, uint *current_column) {
   char cursor_position[MAX_BUFFER_SIZE];
   printf("\033[6n");
 
@@ -108,7 +103,7 @@ void get_cursor_pos(uint *current_row, uint *current_column)
   uint buffer_index = 0;
 
   for (int i = 0; *(cursor_position + i) != '\0'; i++) {
-    
+
     /* ^[[11;1R - From \033[6n */
     if (*(cursor_position + i) == ';') {
       rc_size[buffer_index] = '\0';
@@ -123,7 +118,7 @@ void get_cursor_pos(uint *current_row, uint *current_column)
       buffer_index = 0;
       break;
     }
-    
+
     if (isdigit(*(cursor_position + i))) {
       rc_size[buffer_index] = *(cursor_position + i);
       buffer_index += 1;
@@ -133,13 +128,12 @@ void get_cursor_pos(uint *current_row, uint *current_column)
 
 /**
  * @brief Clear the entire line.
- * 
+ *
  * @param rows The line number to clear
  *
  * @return void
  */
-void clear_line(uint rows)
-{
+void clear_line(uint rows) {
   cursor_move(rows, 0);
   printf("\033[2K");
 }

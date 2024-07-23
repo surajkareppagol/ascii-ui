@@ -2,10 +2,10 @@
  * @file panel.c
  * @author Suraj K
  *
- * @brief Functions to build various components 
+ * @brief Functions to build various components
  *
  * @date 2024-07-21
- * 
+ *
  * @copyright Copyright (c) 2024
  */
 
@@ -13,22 +13,21 @@
 
 /**
  * @brief Build panel using panel edges and message
- * 
+ *
  * @param panel_edges The panel edges
  * @param message The message to be printed inside panel
  * @param pos Position of the panel
  *
  * @return void
  */
-void build_panel(char *panel_edges, char *message, uint pos)
-{
+void build_panel(char *panel_edges, char *message, uint pos) {
   /* Build panel */
   cursor_left_right(pos, 'r');
   printf("%s\n", panel_edges);
 
   cursor_left_right(pos, 'r');
   printf("| %s |\n", message);
-  
+
   cursor_left_right(pos, 'r');
   printf("%s\n", panel_edges);
 }
@@ -36,13 +35,12 @@ void build_panel(char *panel_edges, char *message, uint pos)
 /**
  * @brief Place panel based on the align value
  *
- * @param message The message to be printed inside the panel 
- * @param align The alignment value, either 'r', 'c', 'l' 
+ * @param message The message to be printed inside the panel
+ * @param align The alignment value, either 'r', 'c', 'l'
  *
  * @return void
  */
-void place_panel(char *message, char align)
-{
+void place_panel(char *message, char align) {
   uint message_size = strlen(message);
 
   /* | HELLO | => 4 + 1 null character + 1 newline */
@@ -60,20 +58,21 @@ void place_panel(char *message, char align)
 
   /* Place panel according to the align property */
   if (align == 'c') {
-    
+
     int start_pos = get_center_pos(panel_edge_size);
     build_panel(panel_edges, message, start_pos);
 
   } else if (align == 'l') {
-    
+
     build_panel(panel_edges, message, 0);
-  
+
   } else if (align == 'r') {
 
     int right_pos = get_right_pos(panel_edge_size);
     build_panel(panel_edges, message, right_pos);
-  
   }
-    
+
   free(panel_edges);
+
+  printf("\033[0m");
 }

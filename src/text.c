@@ -5,23 +5,22 @@
  * @brief Functions to print text
  *
  * @date 2024-07-21
- * 
+ *
  * @copyright Copyright (c) 2024
  */
 
 #include "components.h"
 
 /**
- * @brief Move cursor and print 
+ * @brief Move cursor and print
  *
- * @param message The message to be printed 
+ * @param message The message to be printed
  * @param rows The row position
  * @param columns The column position
  *
  * @return void
  */
-void mv_print(char *message, uint rows, uint columns)
-{
+void mv_print(char *message, uint rows, uint columns) {
   if (check_wh(rows, columns) != 0) {
     return;
   }
@@ -29,18 +28,20 @@ void mv_print(char *message, uint rows, uint columns)
   cursor_home();
   cursor_move(rows, columns);
   printf("%s", message);
+
+  /* Reset color */
+  printf("\033[0m");
 }
 
 /**
- * @brief Move cursor to center and print 
+ * @brief Move cursor to center and print
  *
- * @param message The message to be printed 
+ * @param message The message to be printed
  * @param rows The row position
  *
  * @return void
  */
-void center_print(char *message, uint rows)
-{
+void center_print(char *message, uint rows) {
   if (check_wh(rows, 0) != 0) {
     return;
   }
@@ -51,4 +52,7 @@ void center_print(char *message, uint rows)
   cursor_home();
   cursor_move(rows, center_pos);
   printf("%s", message);
+
+  /* Reset color */
+  printf("\033[0m");
 }

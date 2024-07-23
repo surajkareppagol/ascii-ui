@@ -12,7 +12,7 @@ it will give more info on what each function does.
 
 Use `make` command to build the executable.
 
-> Currently adding color support to this.
+> Currently creating more components such as tables.
 
 ## Example
 
@@ -25,45 +25,54 @@ This is the result for below code.
 ```c
 #include "src/components.h"
 
-int add(int number_a, int number_b);
-
 int main()
-{   
+{
   handle_signal(clean_up);
   clear_screen_s();
 
   uint number_a = 1, number_b = 1;
 
-  char choice = 'y', buffer[40];
+  char operation = '+', choice = 'y', buffer[40];
 
   while (1) {
     clear_screen();
     cursor_home();
 
+    /* Set color */
+    set_color(black, white);
+
     place_panel("ASCII - UI % A C Library", 'c');
 
-    mv_print("I will add and print \"two\" numbers you give, try it.\n", 8, 0);
-    scanf("%u%u", &number_a, &number_b);
-    clear_line(9);
-    
+    /* Set color */
+    set_color(black, green);
+
+    /* Move and print */
+    mv_print("I can do arithmetic operation on \"two\" numbers you give, try it. (1 + 1): ", 8, 10);
+    scanf("%u%c%u", &number_a, &operation, &number_b);
+
+    /* Clear line for scanf */
+    clear_line(8);
+
     clear_line(12);
-    snprintf(buffer, 40, "The addition is %d. Am i right?\n", add(number_a, number_b));
+    /* Set color */
+    set_color(black, blue);
+
+    snprintf(buffer, 40, "The addition is %d. Am i right?\n", perform(number_a, number_b, operation));
     center_print(buffer, 12);
 
+    /* Set fg color */
+    // set_fg_color(yellow);
+
+    /* Move and print */
     mv_print("Continue (y/n)?", 14, 0);
     scanf("%c", &choice);
     clear_line(15);
-    
+
     if (choice == 'n') {
       break;
     }
   }
 
   return 0;
-}
-
-int add(int number_a, int number_b)
-{
-  return number_a + number_b;
 }
 ```

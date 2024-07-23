@@ -27,7 +27,19 @@
 #define clear_screen() printf("\033[3J")
 #define cursor_home() printf("\033[H")
 
+#define FG_START_COLOR_VALUE 30
+#define BG_START_COLOR_VALUE 40
+
+/* ENUMS */
+
+enum Color {black = 0, red, green, yellow, blue, magenta, cyan, white, current, reset};
+
 /* FUNCTIONS */
+
+/* For colors.c */
+void set_bg_color(uint color);
+void set_fg_color(uint color);
+void set_color(uint fg, uint bg);
 
 /* For panel.c */
 void build_panel(char *panel_edges, char *message, uint pos);
